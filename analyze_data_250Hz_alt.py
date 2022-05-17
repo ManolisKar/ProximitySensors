@@ -64,7 +64,6 @@ def main():
   #  num = int(file_name.split("_")[-1].split(".dat")[0])
   for num in range(0,10000):
     filename = datadir + "/" + PREFIX + ("_%d.dat" % num)
-    #num = int(file_name.split("_")[-1].split(".dat")[0])
     if not os.path.exists(filename): continue
     print ('Processing data file #%d, run=%d' % (nfiles,num))
     runnum.append(num)
@@ -80,7 +79,7 @@ def main():
 
 
     ##cut times in sec
-    tmin,tmax = 3,6
+    tmin,tmax = 4,6
 
     ## average samples in groups of (if 1, no averaging)
     avg_by_n=1
@@ -141,6 +140,12 @@ def main():
         distance0_file.append(dist0)
         x = prox1_file[-1]
         dist1 = (73.1555-0.0267666*x+6.79842e-06*x**2-5.78545e-10*x**3+3.00264e-14*x**4)*np.exp(-0.000357827*x)
+        if '200uA' in datadir:
+          # Use calibration for 200uA
+          x_abv = x-2211 ## sensor output above sensor noise level
+          if x_abv<1000: dist1=86.1731-0.209823*x_abv+0.000251952*x_abv**2-1.06007e-07*x_abv**3
+          else: dist1=19.6794-0.00266401*x_abv+1.31008e-07*x_abv**2
+          dist1*=2 ## for the 200uA calibration
         if dist1<0:
           dist1=0
         distance1_all.append(dist1)
@@ -165,16 +170,21 @@ def main():
     time_file = np.array(time_file)
 
     ## Average to limit the sampling rate, which is too high, >600Hz apparently
-    distance1_avg2=[]
-    time_avg2=[]
-    for i in range(0,len(distance1_file)-3,4):
-      distance1_avg2.append( (distance1_file[i]+distance1_file[i+1]+distance1_file[i+2]+distance1_file[i+3] )/4 )
-      time_avg2.append( (time_file[i]+time_file[i+1]+time_file[i+2]+time_file[i+3] )/4 )
+    distance1_avgN=[]
+    time_avgN=[]
+    for i in range(0,len(distance1_file)-(avg_by_n-1),avg_by_n):
+      distance_avg = distance1_file[i]
+      time_avg = time_file[i]
+      for i_avg in range(0,avg_by_n-1):
+        distance_avg += distance1_file[i+i_avg]
+        time_avg += time_file[i+i_avg]
+      distance1_avgN.append( distance_avg/avg_by_n )
+      time_avgN.append( time_avg/avg_by_n )
 
 
     ## Now do the FFT
-    fft_input = distance1_file
-    sampling_rate = len(time_avg2)/(time_avg2[-1]-time_avg2[0]) ## assumes continuous entries in file, after cuts above
+    fft_input = distance1_avgN
+    sampling_rate = len(time_avgN)/(time_avgN[-1]-time_avgN[0]) ## assumes continuous entries in file, after cuts above
     print 'sampling rate: %f Hz' % sampling_rate
     ## from fftpack
     dist_fft = fftpack.fft(fft_input)
@@ -191,7 +201,7 @@ def main():
         freq_at_peak = x
     print 'Max amplitude = %f   @   freq = %f' %(peak_amplitude,freq_at_peak)
     ## Skip if we only see noise
-    if peak_amplitude<5: continue
+    if peak_amplitude<1: continue
 
     ## Plot
     title='%s , Run1 %d' % (datadir,num)
@@ -206,7 +216,7 @@ def main():
       #sharex=fft_plot, 
       xlabel='Time [s]', ylabel='Distance [mm]')
     distance_plot.plot(
-      time_avg2,distance1_avg2, 
+      time_avgN,distance1_avgN, 
       #label='real',
       color='red'
     )
