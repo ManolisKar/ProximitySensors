@@ -48,7 +48,7 @@ Instead I was able to perform the measurement with inexpensive infrared sensors,
 
 
 <p align = "center">
-<img src="https://github.com/ManolisKar/ProximitySensors/blob/master/images/VCNL4010.png?raw=true" alt="Trulli" style="width:90%">
+<img src="https://github.com/ManolisKar/ProximitySensors/blob/master/images/VCNL4010.png?raw=true" alt="Trulli" style="width:7tt0%">
 </p>
 <p align = "center">
 <sup>
@@ -61,7 +61,7 @@ The VCNL sensors were controlled by a Raspberry pi board, which was powered by a
 The entire system was fit on a specially designed and machined fixture, which was mounted on the 9 cm diameter vertical surface of the trolley.
 
 <p align = "center">
-<img src="https://github.com/ManolisKar/ProximitySensors/blob/master/images/fixture.png?raw=true" alt="Trulli" style="width:90%">
+<img src="https://github.com/ManolisKar/ProximitySensors/blob/master/images/fixture.png?raw=true" alt="Trulli" style="width:70%">
 </p>
 <p align = "center">
 <sup>
