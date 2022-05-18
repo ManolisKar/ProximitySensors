@@ -48,11 +48,11 @@ Instead I was able to perform the measurement with inexpensive infrared sensors,
 
 
 <p align = "center">
-<img src="https://github.com/ManolisKar/ProximitySensors/blob/master/images/VCNL4010.png?raw=true" alt="Trulli" style="width:7tt0%">
+<img src="https://github.com/ManolisKar/ProximitySensors/blob/master/images/VCNL4010.png?raw=true" alt="Trulli" style="width:60%">
 </p>
 <p align = "center">
 <sup>
-Fig. 3: The VCNL4010 proximity sensors(https://www.vishay.com/docs/83462/vcnl4010.pdf). They can perform a distance measurement via an IR emitter and matched photodiode.
+Fig. 3: The VCNL4010 proximity sensors (https://www.vishay.com/docs/83462/vcnl4010.pdf). They can perform a distance measurement via an IR emitter and matched photodiode.
 </sup>
 </p>
 
