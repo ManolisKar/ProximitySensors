@@ -43,8 +43,8 @@ The requirements of an in-situ measurement are very challenging:
 * We need to measure the location of the plates with high precision.
 * We cannot touch or disturb the sensitive plates. 
 
-Given these challenging requirementst, the Alignment Department was considering the purchase of highly specialized equipment in the tens of thousands $. Instead I was able to perform the measurement with inexpensive infrared sensors, commonly used in robotic vision, mounted on the vertical surface of a "trolley" that can access the vacuum region to sample the magnetic field.
-
+Given these challenging requirements, the Alignment Department was considering the purchase of highly specialized equipment in the tens of thousands $$. 
+Instead I was able to perform the measurement with inexpensive infrared sensors, commonly used in robotic vision, mounted on the vertical surface of a "trolley" that can access the vacuum region to sample the magnetic field.
 
 
 <p align = "center">
@@ -52,6 +52,65 @@ Given these challenging requirementst, the Alignment Department was considering 
 </p>
 <p align = "center">
 <sup>
-Fig.3: The [VCNL4010 proximity sensors](https://www.vishay.com/docs/83462/vcnl4010.pdf). 
+Fig. 3: The VCNL4010 proximity sensors(https://www.vishay.com/docs/83462/vcnl4010.pdf). They can perform a distance measurement via an IR emitter and matched photodiode.
+</sup>
+</p>
+
+
+The VCNL sensors were controlled by a Raspberry pi board, which was powered by a battery, so that the measurement can be made completely autonomously without the need for cables inside the vacuum region that could affect sensitive equipment. 
+The entire system was fit on a specially designed and machined fixture, which was mounted on the 9 cm diameter vertical surface of the trolley.
+
+<p align = "center">
+<img src="https://github.com/ManolisKar/ProximitySensors/blob/master/images/fixture.png?raw=true" alt="Trulli" style="width:90%">
+</p>
+<p align = "center">
+<sup>
+Fig. 4: The sensors-Rpi-battery fixture mounted on the vacuum trolley. 
+</sup>
+</p>
+
+
+The fixture with a pair of sensors mounted to sample the inner and radial plates. The trolley traversed a long distance around the ring, passing through each quad segment twice. The raw data is shown in Fig. 5 for the two sensors. 
+
+
+<p align = "center">
+<img src="https://github.com/ManolisKar/ProximitySensors/blob/master/images/raw_sensor_data.png?raw=true" alt="Trulli" style="width:90%">
+</p>
+<p align = "center">
+<sup>
+Fig. 5: The raw distance measurement from the two sensors as they sampled quadrupole plates. 
+</sup>
+</p>
+
+
+## Calibration and results
+
+The raw sensor data still have to be calibrated before we can extract the plates location in global ring coordinates. 
+Each data point in Fig. 5 correponds to the average from 3s of data collection from the sensors. 
+Under the reasonable assumption of constant trolley velocity, we can map the data collected along the azimuthal extent of each plate. 
+
+By characterizing the geometric properties of the fixture, we can translate the sensor distance measurements to the distance from the center of the fixture/trolley. 
+Finally we use the previously surveyed locations of the trolley rails, to take into account their variation, and also to translate the sensor measurement into global coordinates.
+
+Finally we are able to plot the in-situ sensor measurement against the expectation from the pre-installation laser survey, in Figures 6,7. 
+Compare the representation of the Q1S laser scan data between Figures 5 and 6.
+
+
+<p align = "center">
+<img src="https://github.com/ManolisKar/ProximitySensors/blob/master/images/Q1S_final.png?raw=true" alt="Trulli" style="width:100%">
+</p>
+<p align = "center">
+<sup>
+Fig. 6: Q1S inner (left) and outer (right) plates locations, as measured from independent surveys. Red triangles: In-situ proximity sensors measurement. Inverted and upright triangles correspond to the two trolley passes. Black dots: Pre-installation laser survey. Green dots: Pre-installation laser survey, within 5 mm from the vertical center. Blue crosses: Independent survey through vacuum flange. 
+</sup>
+</p>
+
+
+<p align = "center">
+<img src="https://github.com/ManolisKar/ProximitySensors/blob/master/images/Q2S_final.png?raw=true" alt="Trulli" style="width:100%">
+</p>
+<p align = "center">
+<sup>
+Fig. 7: As in Fig. 6, but for Q2S plates. 
 </sup>
 </p>
