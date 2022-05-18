@@ -52,6 +52,6 @@ Given these challenging requirementst, the Alignment Department was considering 
 </p>
 <p align = "center">
 <sup>
-Fig.3: The ![VCNL4010 proximity sensors](https://www.vishay.com/docs/83462/vcnl4010.pdf). 
+Fig.3: The [VCNL4010 proximity sensors](https://www.vishay.com/docs/83462/vcnl4010.pdf). 
 </sup>
 </p>
